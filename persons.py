@@ -11,7 +11,13 @@ def add_person():
         c.execute("""
             INSERT INTO personas (nombre, dni, cargo, motivo, destino)
             VALUES (%s, %s, %s, %s, %s)
-        """, (data["nombre"], data["dni"], data["cargo"], data["motivo"], data["destino"]))
+        """, (
+            data["nombre"],
+            data["dni"],
+            data["cargo"],
+            data["motivo"],
+            data["destino"]
+        ))
     conn.commit()
     return {"ok": True, "message": "Persona registrada"}
 
@@ -19,6 +25,6 @@ def add_person():
 def get_persons():
     conn = get_connection()
     with conn.cursor() as c:
-        c.execute("SELECT * FROM personas ORDER BY fecha DESC")
+        c.execute("SELECT * FROM personas")
         rows = c.fetchall()
     return jsonify(rows)
