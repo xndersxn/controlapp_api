@@ -11,7 +11,14 @@ def add_object():
         c.execute("""
             INSERT INTO objetos (codigo, nombre, descripcion, cantidad, responsable, tipo)
             VALUES (%s, %s, %s, %s, %s, %s)
-        """, (data["codigo"], data["nombre"], data["descripcion"], data["cantidad"], data["responsable"], data["tipo"]))
+        """, (
+            data["codigo"],
+            data["nombre"],
+            data["descripcion"],
+            data["cantidad"],
+            data["responsable"],
+            data["tipo"]
+        ))
     conn.commit()
     return {"ok": True, "message": "Objeto registrado"}
 
@@ -19,6 +26,6 @@ def add_object():
 def get_objects():
     conn = get_connection()
     with conn.cursor() as c:
-        c.execute("SELECT * FROM objetos ORDER BY fecha DESC")
+        c.execute("SELECT * FROM objetos")
         rows = c.fetchall()
     return jsonify(rows)
